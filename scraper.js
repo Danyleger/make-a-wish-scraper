@@ -17,6 +17,24 @@ function arrayToCSV(data) {
   return csvRows.join("\n");
 }
 
+function convertJSONToHtmlTable(jsonData) {
+  let headers = Object.keys(jsonData[0]);
+  let table = '<html><body><table><thead><tr>';
+
+  headers.forEach(header => table += `<th>${header}</th>`);
+  table += '</tr></thead><tbody>';
+
+  jsonData.forEach(row => {
+    table += '<tr>';
+    headers.forEach(header => table += `<td>${row[header]}</td>`);
+    table += '</tr>';
+  });
+
+  table += '</tbody></table></body></html>';
+
+  return table
+}
+
 (async () => {
   // Launch Chrome in headless mode
   const browser = await puppeteer.launch({
@@ -99,6 +117,8 @@ function arrayToCSV(data) {
   fs.writeFileSync("output/members.csv", arrayToCSV(results[1]));
   fs.writeFileSync("output/teams.txt", arrayToCSV(results[0]));
   fs.writeFileSync("output/members.txt", arrayToCSV(results[1]));
+  fs.writeFileSync("output/teams.html", convertJSONToHtmlTable(results[0]));
+  fs.writeFileSync("output/members.html", convertJSONToHtmlTable(results[1]));
 
   console.log("CSV saved to output/members.csv");
   console.log("Closing browser...");
