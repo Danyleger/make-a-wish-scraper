@@ -3,7 +3,7 @@ on:
   push:
     branches: ["main"]
   schedule:
-    - cron: '0 16,20 * * *'  # Run at 11am, and 3pm EST
+    - cron: '0 */2 * * *'  # Run every two hours
   workflow_dispatch:
 permissions:
   contents: read
