@@ -97,6 +97,8 @@ const fs = require("fs");
   if (!fs.existsSync("output")) fs.mkdirSync("output"); // Ensure directory exists
   fs.writeFileSync("output/teams.csv", results[0]);
   fs.writeFileSync("output/members.csv", results[1]);
+  fs.writeFileSync("output/teams.txt", results[0]);
+  fs.writeFileSync("output/members.txt", results[1]);
 
   console.log("CSV saved to output/members.csv");
   console.log("Closing browser...");
