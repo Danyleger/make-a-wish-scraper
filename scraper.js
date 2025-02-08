@@ -86,7 +86,7 @@ function arrayToCSV(data) {
       console.log("Finished fetching and processing team members.");
       console.log("cleaned team members", cleanedTeamMembers);
 
-      return cleanedTeamMembers.length > 0 ? [leanedTeams.map((team) => ({ name: team.name, donations: team.donations })), cleanedTeamMembers] : [{}, {}];
+      return cleanedTeamMembers.length > 0 ? [cleanedTeams.map((team) => ({ name: team.name, donations: team.donations })), cleanedTeamMembers] : [{}, {}];
     }
 
     return await downloadToCsv(); // ✅ Return CSV data to Node.js
