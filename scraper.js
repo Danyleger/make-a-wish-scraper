@@ -86,7 +86,7 @@ const fs = require("fs");
       console.log("Finished fetching and processing team members.");
       console.log("cleaned team members", cleanedTeamMembers);
 
-      return cleanedTeamMembers.length > 0 ? arrayToCSV(cleanedTeamMembers) : "";
+      return cleanedTeamMembers.length > 0 ? [arrayToCSV(cleanedTeams), arrayToCSV(cleanedTeamMembers)] : ["", ""];
     }
 
     return await downloadToCsv(); // ✅ Return CSV data to Node.js
@@ -95,7 +95,8 @@ const fs = require("fs");
   console.log("results:", results); // ✅ Should now have CSV content
 
   if (!fs.existsSync("output")) fs.mkdirSync("output"); // Ensure directory exists
-  fs.writeFileSync("output/members.csv", results);
+  fs.writeFileSync("output/teams.csv", results[0]);
+  fs.writeFileSync("output/members.csv", results[1]);
 
   console.log("CSV saved to output/members.csv");
   console.log("Closing browser...");
