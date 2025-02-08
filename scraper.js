@@ -1,6 +1,22 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 
+function arrayToCSV(data) {
+  if (data.length === 0) return ""; // Handle empty data case
+
+  const headers = Object.keys(data[0]);
+  const csvRows = [headers.join(",")];
+
+  data.forEach((row) => {
+    const values = headers.map((header) =>
+      JSON.stringify(row[header] || "")
+    );
+    csvRows.push(values.join(","));
+  });
+
+  return csvRows.join("\n");
+}
+
 (async () => {
   // Launch Chrome in headless mode
   const browser = await puppeteer.launch({
@@ -24,22 +40,6 @@ const fs = require("fs");
 
     const eventId = 1364;
     const currentUnixTime = () => Date.now();
-
-    function arrayToCSV(data) {
-      if (data.length === 0) return ""; // Handle empty data case
-
-      const headers = Object.keys(data[0]);
-      const csvRows = [headers.join(",")];
-
-      data.forEach((row) => {
-        const values = headers.map((header) =>
-          JSON.stringify(row[header] || "")
-        );
-        csvRows.push(values.join(","));
-      });
-
-      return csvRows.join("\n");
-    }
 
     async function fetchTeamMembers(cleanedTeams) {
       let cleanedTeamMembers = [];
@@ -86,7 +86,7 @@ const fs = require("fs");
       console.log("Finished fetching and processing team members.");
       console.log("cleaned team members", cleanedTeamMembers);
 
-      return cleanedTeamMembers.length > 0 ? [arrayToCSV(cleanedTeams.map((team) => ({ name: team.name, donations: team.donations }))), arrayToCSV(cleanedTeamMembers)] : ["", ""];
+      return cleanedTeamMembers.length > 0 ? [leanedTeams.map((team) => ({ name: team.name, donations: team.donations })), cleanedTeamMembers] : [{}, {}];
     }
 
     return await downloadToCsv(); // ✅ Return CSV data to Node.js
@@ -95,10 +95,10 @@ const fs = require("fs");
   console.log("results:", results); // ✅ Should now have CSV content
 
   if (!fs.existsSync("output")) fs.mkdirSync("output"); // Ensure directory exists
-  fs.writeFileSync("output/teams.csv", results[0]);
-  fs.writeFileSync("output/members.csv", results[1]);
-  fs.writeFileSync("output/teams.txt", results[0]);
-  fs.writeFileSync("output/members.txt", results[1]);
+  fs.writeFileSync("output/teams.csv", arrayToCSV(results[0]));
+  fs.writeFileSync("output/members.csv", arrayToCSV(results[1]));
+  fs.writeFileSync("output/teams.txt", arrayToCSV(results[0]));
+  fs.writeFileSync("output/members.txt", arrayToCSV(results[1]));
 
   console.log("CSV saved to output/members.csv");
   console.log("Closing browser...");
