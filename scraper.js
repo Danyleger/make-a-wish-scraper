@@ -119,6 +119,7 @@ function convertJSONToHtmlTable(jsonData) {
   fs.writeFileSync("output/members.txt", arrayToCSV(results[1]));
   fs.writeFileSync("output/teams.html", convertJSONToHtmlTable(results[0]));
   fs.writeFileSync("output/members.html", convertJSONToHtmlTable(results[1]));
+  fs.writeFileSync("output/index.html", convertJSONToHtmlTable(results[0]));
 
   console.log("CSV saved to output/members.csv");
   console.log("Closing browser...");
