@@ -89,7 +89,7 @@ function convertJSONToHtmlTable(jsonData) {
     }
 
     async function downloadToCsv() {
-      const url = `https://makeawishca.donordrive.com/api/1.1/events/${eventId}/teams?where=%28captainDisplayName+LIKE+%27%25desjardins%25%27+OR+name+LIKE+%27%25desjardins%25%27%29&orderBy=name+ASC&limit=100&_=${currentUnixTime()}`;
+      const url = `https://makeawishca.donordrive.com/api/1.1/events/${eventId}/teams?where=%28name+LIKE+%27%25desjardins%25%27%29&orderBy=name+ASC&limit=100&_=${currentUnixTime()}`;
       const teamsResponse = await fetch(url);
       const teamsData = await teamsResponse.json();
 
