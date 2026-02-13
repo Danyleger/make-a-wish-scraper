@@ -48,7 +48,7 @@ function convertJSONToHtmlTable(jsonData) {
 
   // Navigate to the page
   await page.goto(
-    "https://makeawishca.donordrive.com/index.cfm?fuseaction=donorDrive.search&filter=team&eventID=1364",
+    "https://makeawishca.donordrive.com/index.cfm?fuseaction=donorDrive.search&filter=team&eventID=1539",
     { waitUntil: "networkidle2" } // Ensure page is fully loaded
   );
 
@@ -56,7 +56,7 @@ function convertJSONToHtmlTable(jsonData) {
   const results = await page.evaluate(async () => {
     console.log("Hello from the browser console!");
 
-    const eventId = 1364;
+    const eventId = 1539;
     const currentUnixTime = () => Date.now();
 
     async function fetchTeamMembers(cleanedTeams) {
