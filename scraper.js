@@ -56,7 +56,7 @@ function convertJSONToHtmlTable(jsonData) {
   const results = await page.evaluate(async () => {
     console.log("Hello from the browser console!");
 
-    const eventId = 1539;
+    const eventId = 1628;
     const currentUnixTime = () => Date.now();
 
     async function fetchTeamMembers(cleanedTeams) {
